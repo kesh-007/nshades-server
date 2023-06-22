@@ -1,33 +1,31 @@
-    const sql = require('mssql');
+const mysql = require('mysql2');
 
-    const config = {
-    server: 'nshades-server.database.windows.net',
-    port: 1433,
-    user: 'keshav',
-    password: 'root@123',
-    database: 'nshades-database',
-    options: {
-        encrypt: true, // Enable encryption if needed
-        trustServerCertificate: true, // Change to 'false' if using a certificate
-    },
-    };
+const connection = mysql.createConnection({
+  host: 'nshades-db.cmmkohbr79bs.ap-southeast-2.rds.amazonaws.com',
+  user: 'admin',
+  password: 'awspassword',
+  database:'nshades'
+});
 
-    // Create a connection pool
-    const pool = new sql.ConnectionPool(config);
+// Connect to the MySQL database
+connection.connect((error) => {
+  if (error) {
+    console.error('Error connecting to MySQL:', error);
+    return;
+  }
 
-    // Connect to the database
-    pool.connect().then((pool) => {
-    console.log('Connected to Azure SQL Database');
+  console.log('Connected to MySQL database');
+});
 
-    // Use the connection pool to execute queries
-    pool.request().query('desc service_providers', (error, result) => {
-        if (error) {
-        console.error('Error executing query:', error);
-        return;
-        }
+// Handle the connect event
+connection.on('connect', () => {
+  console.log('Connected event fired');
+});
 
-        console.log('Query results:', result.recordset);
-    });
-    }).catch((error) => {
-    console.error('Error connecting to Azure SQL Database:', error);
-    });
+// Handle the error event
+connection.on('error', (error) => {
+  console.error('MySQL error:', error);
+});
+
+// Close the connection when done
+connection.end();
