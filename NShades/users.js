@@ -143,13 +143,13 @@ exports.loginVendor = (req, res) => {
           port: 587,
           secure: false,
           auth: {
-            user: process.env.EMAIL,
-            pass: process.env.EMAIL_PASSWORD,
+            user: 'connect.nshades@gmail.com',
+            pass: 'fhyiittdtrugwmjn',
           },
         });
   
         const mailOptions = {
-          from: process.env.EMAIL,
+          from: 'connect.nshades@gmail.com',
           to: email,
           subject: 'Password Reset',
           text: `Your new password is: ${randomString}`,
