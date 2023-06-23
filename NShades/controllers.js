@@ -67,7 +67,7 @@
     
 
   exports.ViewServices = (req, res) => {
-    const sqlQuery = 'SELECT * FROM service_providers WHERE type = "vendors" AND name != "Vendor" and description != "" and expertise != "";';
+    const sqlQuery = 'SELECT * FROM service_providers WHERE type = "vendors" AND name != "Vendor" and description != "" and expertise != "" order by likes desc;';
     const workSqlQuery = `UPDATE service_providers AS sp
       SET likes = (
           SELECT COUNT(*) 

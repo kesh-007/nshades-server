@@ -1,0 +1,29 @@
+service: server
+
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  memorySize: 2048
+  stage: prod
+  timeout: 15
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http: ANY /{proxy+}
+      - http: ANY /
+    environment:
+      USER: root
+      PORT: 8000
+      PASSWORD: root@123
+      ACCOUNTSID: AC05c9085114c0a21871a65f42d70409fd
+      AUTHTOKEN: b4f214b4c715831102e3ce5bda60cd0c
+      EMAIL: connect.nshades@gmail.com
+      EMAIL_PASSWORD: fhyiittdtrugwmjn
+package:
+  patterns:
+    - node_modules/**
+
